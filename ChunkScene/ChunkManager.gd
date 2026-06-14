@@ -1,6 +1,8 @@
 extends TileMap
 var jugador = preload("res://player/Player.tscn").instantiate()
 const ENEMY_SCENE = preload("res://Enemigos/Enemy.tscn")
+const COFRE_NORMAL = preload("res://Cofre/cofre.tscn")
+const COFRE_MIMIC = preload("res://Cofre/Mimic/mimic.tscn")
 
 @export var min_spawn_distance: float = 200.0 # Distancia mínima para que no aparezca encima
 @export var max_spawn_distance: float = 400.0 # Distancia máxima para que no aparezca fuera de pantalla
@@ -90,6 +92,7 @@ func spawnear_jugador():
 		
 		# 4. ¡EL TRUCO CRÍTICO!: Añadimos la cámara como HIJA del jugador
 		jugador.add_child(camera)
+		spawnear_cofre_inicial()
 		
 func _on_spawn_timer_timeout() -> void:
 	# Cada vez que el temporizador llegue a 0, ejecutamos el spawn
@@ -121,6 +124,23 @@ func get_player_pos() -> Vector2:
 	if Player:
 		return Player.global_position
 	return Vector2.ZERO
+
+func spawnear_cofre_inicial():
+	var es_mimic = randf() < 0.3 
+
+	var escena_a_instanciar = COFRE_MIMIC if es_mimic else COFRE_NORMAL
+	var nuevo_objeto = escena_a_instanciar.instantiate()
+
+	var offset = Vector2(randf_range(-150, 150), randf_range(-150, 150))
+	if offset.length() < 100:
+		offset = offset.normalized() * 120
+		
+	nuevo_objeto.global_position = posicion_spawn_jugador + offset
+
+	add_child(nuevo_objeto)
+
+	if es_mimic:
+		print("¡Cuidado! Ha aparecido un Mímico.")
 		
 
 func setup(_chunk_data):
