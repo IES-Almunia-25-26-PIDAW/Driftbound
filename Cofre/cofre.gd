@@ -1,46 +1,36 @@
 extends StaticBody2D
 class_name Cofre
 
-# 🌟 Asegúrate de que esta ruta apunte a tu escena .tscn del ítem
+# 🌟 Ruta a la escena .tscn del ítem
 const ITEM_SCENE = preload("res://Player/Items/item_recogible.tscn") 
 
 @export var vida_cofre: int = 1
 var roto: bool = false
 
 func _ready() -> void:
-	add_to_group("enemigos")
+	# Lo registramos en su propio grupo para tenerlo organizado
+	add_to_group("cofres_normales")
 	
-	# Conectamos el detector de forma segura
+	# Conectamos las señales físicas por si acaso, pero el proyectil
+	# ahora se encargará de avisar directamente mediante su función dedicada.
 	if has_node("DetectorProyectiles"):
 		var detector = $DetectorProyectiles
-		detector.area_entered.connect(_on_algo_entro_area)
-		detector.body_entered.connect(_on_algo_entro_cuerpo)
+		if not detector.area_entered.is_connected(_on_algo_entro_area):
+			detector.area_entered.connect(_on_algo_entro_area)
 
 func _on_algo_entro_area(area: Area2D) -> void:
-	# Ignoramos si es el propio jugador o el mapa
-	if area.is_in_group("grupo_jugador") or area.name == "AreaIman": return
-	
-	# Si es un proyectil válido, procesamos el impacto
-	var nombre = area.name.to_lower()
-	if "proyectil" in nombre or "ball" in nombre or "ataque" in nombre or area.is_in_group("enemigos"):
-		procesar_impacto_recogido(area)
-
-func _on_algo_entro_cuerpo(body: Node) -> void:
-	if body == self or body.is_in_group("grupo_jugador"): return
-	
-	var nombre = body.name.to_lower()
-	if "proyectil" in nombre or "ball" in nombre:
-		procesar_impacto_recogido(body)
-
-func procesar_impacto_recogido(objeto: Node) -> void:
 	if roto: return
 	
-	# Borramos el proyectil para que no siga de largo
-	if objeto.has_method("queue_free"):
-		objeto.queue_free()
-	elif objeto.get_parent().has_method("queue_free") and objeto.get_parent() != self:
-		objeto.get_parent().queue_free()
+	# Si el objeto que entra es un Proyectil oficial (comprobamos por clase o grupo)
+	if area is Proyectil or area.is_in_group("proyectiles"):
+		recibir_disparo_cofre()
 
+# 🌟 ESTA ES LA FUNCIÓN CLAVE QUE LLAMA TU PROYECTIL NUEVO
+# Funciona siempre: da igual si es el primer tiro, el segundo o el número cien.
+func recibir_disparo_cofre() -> void:
+	if roto: return
+	
+	print("🔓 [Cofre Normal] ¡Impacto certero detectado desde el Proyectil!")
 	recibir_daño(1)
 
 func recibir_daño(cantidad: int) -> void:
@@ -50,7 +40,10 @@ func recibir_daño(cantidad: int) -> void:
 		romper_cofre()
 
 func romper_cofre() -> void:
+	if roto: return
 	roto = true
+	
+	print("🎁 [Cofre Normal] Rompiendo cofre y generando recompensa...")
 	
 	var opciones = ["vida_max", "curacion", "daño"]
 	var elegido = opciones[randi() % opciones.size()]
@@ -65,4 +58,6 @@ func romper_cofre() -> void:
 	
 	nuevo_item.global_position = global_position
 	get_tree().current_scene.add_child(nuevo_item)
+	
+	# Nos eliminamos de la escena de forma limpia
 	queue_free()

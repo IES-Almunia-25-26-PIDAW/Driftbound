@@ -10,12 +10,16 @@ const SPRITE_TIERRA = preload("res://assets/sprites/StoneBall.png")
 var velocidad: float = 300.0
 var direccion: Vector2 = Vector2.RIGHT
 var elemento: String = "Fuego"
-var daño_impacto: int = 1 # Este valor lo va a cambiar el Player al disparar
+var daño_impacto: int = 1 
 
 func _ready() -> void:
+	# 🌟 CONEXIONES DOBLES: Escuchamos tanto cuerpos sólidos como áreas detectoras
 	body_entered.connect(_on_body_entered)
+	area_entered.connect(_on_area_entered)
 	
-	# 🔄 Cambiamos la textura pero SIN sobreescribir el 'daño_impacto' que nos pase el jugador
+	# Nos añadimos al grupo por si otros scripts lo comprueban por grupo
+	add_to_group("proyectiles")
+	
 	match elemento:
 		"Fuego":
 			sprite_2d.texture = SPRITE_FUEGO
@@ -23,7 +27,6 @@ func _ready() -> void:
 			sprite_2d.texture = SPRITE_AGUA
 		"Tierra":
 			sprite_2d.texture = SPRITE_TIERRA
-			# Si es tierra y no se ha modificado el daño base aún, le damos su bonus por defecto
 			if daño_impacto <= 1: daño_impacto = 3
 			
 	rotation = direccion.angle()
@@ -31,12 +34,40 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	position += direccion * velocidad * delta
 
+# 🌟 1. DETECCIÓN DE CUERPOS SÓLIDOS (Enemigos, Mímicos, Paredes, etc.)
 func _on_body_entered(body: Node) -> void:
+	if body.is_in_group("grupo_jugador") or body == self: 
+		return
+
+	# Si el cuerpo sólido tiene el método del mímico/enemigo
 	if body.has_method("recibir_efecto_elemental"):
-		print("🚀 Proyectil impacta con daño real enviado: ", daño_impacto)
 		body.recibir_efecto_elemental(elemento, direccion, daño_impacto)
 		queue_free()
-	else:
-		# Ignoramos si choca contra el área del imán o detectores
-		if not body.is_in_group("grupo_jugador") and body.name != "AreaIman" and body.name != "DetectorProyectiles":
-			queue_free()
+		return
+		
+	# Si el cuerpo sólido es el propio cofre directamente
+	elif body.has_method("recibir_disparo_cofre"):
+		body.recibir_disparo_cofre()
+		queue_free()
+		return
+		
+	# Si choca contra paredes o suelo del mapa
+	elif body is TileMap or body is StaticBody2D:
+		queue_free()
+		return
+
+# 🌟 2. DETECCIÓN DE ÁREAS (Como el DetectorProyectiles de tu Cofre)
+func _on_area_entered(area: Area2D) -> void:
+	# Ignoramos áreas del propio jugador o imanes
+	if area.is_in_group("grupo_jugador") or area.name == "AreaIman": 
+		return
+	
+	# Si el área pertenece a un cofre normal, o su padre es el cofre
+	if area.has_method("recibir_disparo_cofre"):
+		area.recibir_disparo_cofre()
+		queue_free()
+		return
+	elif area.get_parent() and area.get_parent().has_method("recibir_disparo_cofre"):
+		area.get_parent().recibir_disparo_cofre()
+		queue_free()
+		return
