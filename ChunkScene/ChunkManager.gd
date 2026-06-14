@@ -154,17 +154,45 @@ func _on_borde_chunk_entered(body: Node2D, area_origen: Area2D):
 				body.global_position -= Vector2(direccion_viaje) * 20.0
 
 func spawnear_cofre_inicial():
+	# 1. Decisión de Mímico (30% probabilidad)
 	var es_mimic = randf() < 0.3 
-
 	var escena_a_instanciar = COFRE_MIMIC if es_mimic else COFRE_NORMAL
 	var nuevo_objeto = escena_a_instanciar.instantiate()
 
-	var offset = Vector2(randf_range(-150, 150), randf_range(-150, 150))
-	if offset.length() < 100:
-		offset = offset.normalized() * 120
-		
-	nuevo_objeto.global_position = Player.global_position + offset
+	# 2. Obtener lista de casillas de tierra disponibles en el chunk actual
+	var tierras = chunk_data.chunkTiles
+	var casillas_tierra = []
+	
+	# Recorremos la matriz para buscar coordenadas con tileId de tierra (0, 1 o 2)
+	for x in range(tierras.size()):
+		for y in range(tierras[x].size()):
+			var tile = tierras[x][y]
+			if tile.tileId.x in [0, 1, 2]:
+				# Guardamos la posición lógica (x,y)
+				casillas_tierra.append(Vector2i(x, y))
 
+	# 3. Elegir una posición segura
+	var posicion_valida = false
+	var intentos = 0
+	var destino_pos = Vector2.ZERO
+	
+	while not posicion_valida and intentos < 50:
+		var casilla = casillas_tierra[randi() % casillas_tierra.size()]
+		# Convertimos la casilla a posición global en píxeles (escala 100)
+		destino_pos = map_to_local(casilla * 100)
+		
+		# Comprobamos que el cofre esté a una distancia prudente del jugador (ej: al menos 150 px)
+		if destino_pos.distance_to(Player.global_position) > 150:
+			posicion_valida = true
+		intentos += 1
+	
+	# Si no encontramos sitio en 50 intentos, lo ponemos cerca del jugador como fallback
+	if not posicion_valida:
+		var offset = Vector2(150, 0).rotated(randf() * 2 * PI)
+		destino_pos = Player.global_position + offset
+
+	# 4. Asignar posición y añadir al árbol
+	nuevo_objeto.global_position = destino_pos
 	add_child(nuevo_objeto)
 
 	if es_mimic:
