@@ -1,9 +1,10 @@
-[gd_scene format=3 uid="uid://bp6bgb1v1l06a"]
+[gd_scene load_steps=9 format=3 uid="uid://bp6bgb1v1l06a"]
 
 [ext_resource type="Texture2D" uid="uid://hv5h0a1bdet" path="res://World/Water_tiles.png" id="1_no7ua"]
 [ext_resource type="Texture2D" uid="uid://d1ius6tbnfynl" path="res://Vegetation.png" id="2_b6blx"]
 [ext_resource type="Script" uid="uid://bd0gpyiwm17fl" path="res://ChunkScene/ChunkManager.gd" id="3_qrtrh"]
-[ext_resource type="PackedScene" path="res://Interfaz de Combate/interfaz_en_combate.tscn" id="4_b6blx"]
+[ext_resource type="PackedScene" uid="uid://jwc0e77ohjd7" path="res://Interfaz de Combate/interfaz_en_combate.tscn" id="4_b6blx"]
+[ext_resource type="PackedScene" uid="uid://can0vqgo8c1oh" path="res://MenuPausa/menu_pausa.tscn" id="5_qrtrh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d6i2a"]
 texture = ExtResource("1_no7ua")
@@ -514,15 +515,17 @@ texture = ExtResource("2_b6blx")
 sources/0 = SubResource("TileSetAtlasSource_d6i2a")
 sources/2 = SubResource("TileSetAtlasSource_fukl6")
 
-[node name="Node2D" type="Node2D" unique_id=206967500]
+[node name="Node2D" type="Node2D"]
 
-[node name="TileMap" type="TileMap" parent="." unique_id=1938394824]
+[node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_fukl6")
 format = 2
 script = ExtResource("3_qrtrh")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=884154032]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="InterfazEnCombate" parent="CanvasLayer" unique_id=653747806 instance=ExtResource("4_b6blx")]
+[node name="InterfazEnCombate" parent="CanvasLayer" instance=ExtResource("4_b6blx")]
+
+[node name="MenuPausa" parent="CanvasLayer" instance=ExtResource("5_qrtrh")]
 
 [editable path="CanvasLayer/InterfazEnCombate"]

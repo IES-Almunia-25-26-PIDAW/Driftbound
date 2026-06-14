@@ -1,0 +1,195 @@
+[gd_scene load_steps=3 format=3 uid="uid://can0vqgo8c1oh"]
+
+[ext_resource type="Script" uid="uid://crv1ynk1l0dm6" path="res://Player/UI/menu_pausa.gd" id="1_psasg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psasg"]
+bg_color = Color(0.22745098, 0.43529412, 0.43529412, 1)
+
+[node name="MenuPausa" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_psasg")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.38431373)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+alignment = 1
+
+[node name="BotonContinuar" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "CONTINUAR"
+
+[node name="BotonMenuPrincipal" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "VOLVER AL MENU PRINCIPAL"
+
+[node name="BotonConfiguracion" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "CONFIGURACION"
+
+[node name="PanelControles" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_psasg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelControles"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -66.5
+offset_right = 66.5
+offset_bottom = 529.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="FilaArriba" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaArriba"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Arriba: "
+
+[node name="BotonArriba" type="Button" parent="PanelControles/VBoxContainer/FilaArriba"]
+layout_mode = 2
+
+[node name="FilaAbajo" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaAbajo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Abajo: "
+
+[node name="BotonAbajo" type="Button" parent="PanelControles/VBoxContainer/FilaAbajo"]
+layout_mode = 2
+
+[node name="FilaDerecha" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaDerecha"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Derecha: "
+
+[node name="BotonDerecha" type="Button" parent="PanelControles/VBoxContainer/FilaDerecha"]
+layout_mode = 2
+
+[node name="FilaIzquierda" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaIzquierda"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Izquierda: "
+
+[node name="BotonIzquierda" type="Button" parent="PanelControles/VBoxContainer/FilaIzquierda"]
+layout_mode = 2
+
+[node name="FilaCorrer" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaCorrer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Correr: "
+
+[node name="BotonCorrer" type="Button" parent="PanelControles/VBoxContainer/FilaCorrer"]
+layout_mode = 2
+
+[node name="FilaAtacar" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaAtacar"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Atacar: "
+
+[node name="BotonAtacar" type="Button" parent="PanelControles/VBoxContainer/FilaAtacar"]
+layout_mode = 2
+
+[node name="FilaFuego" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaFuego"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Fuego: "
+
+[node name="BotonFuego" type="Button" parent="PanelControles/VBoxContainer/FilaFuego"]
+layout_mode = 2
+
+[node name="FilaAgua" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaAgua"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Agua: "
+
+[node name="BotonAgua" type="Button" parent="PanelControles/VBoxContainer/FilaAgua"]
+layout_mode = 2
+
+[node name="FilaTierra" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaTierra"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Tierra: "
+
+[node name="BotonTierra" type="Button" parent="PanelControles/VBoxContainer/FilaTierra"]
+layout_mode = 2
+
+[node name="BotonVolver" type="Button" parent="PanelControles"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.49300003
+anchor_top = 0.84400004
+anchor_right = 0.49300003
+anchor_bottom = 0.84400004
+offset_left = -82.936035
+offset_top = -59.756042
+offset_right = 85.063965
+offset_bottom = -13.7560425
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Volver"
+
+[connection signal="pressed" from="VBoxContainer/BotonContinuar" to="." method="_on_boton_continuar_pressed"]
+[connection signal="pressed" from="VBoxContainer/BotonMenuPrincipal" to="." method="_on_boton_menu_principal_pressed"]
+[connection signal="pressed" from="VBoxContainer/BotonConfiguracion" to="." method="_on_boton_configuracion_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaArriba/BotonArriba" to="." method="_on_boton_arriba_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaAbajo/BotonAbajo" to="." method="_on_boton_abajo_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaDerecha/BotonDerecha" to="." method="_on_boton_derecha_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaIzquierda/BotonIzquierda" to="." method="_on_boton_izquierda_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaCorrer/BotonCorrer" to="." method="_on_boton_correr_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaAtacar/BotonAtacar" to="." method="_on_boton_atacar_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaFuego/BotonFuego" to="." method="_on_boton_fuego_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaAgua/BotonAgua" to="." method="_on_boton_agua_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaTierra/BotonTierra" to="." method="_on_boton_tierra_pressed"]
+[connection signal="pressed" from="PanelControles/BotonVolver" to="." method="_on_boton_volver_pressed"]
