@@ -102,6 +102,10 @@ func _on_boton_configuracion_pressed() -> void:
 func _on_boton_menu_principal_pressed() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file(ESCENA_MENU)
+	
+func _on_boton_guardar_pressed() -> void:
+	#AQUI VA TU FUNCION DE GUARDAR JUANAN
+	pass 
 
 # --- Conexión de Señales del Panel de Controles de Pausa ---
 

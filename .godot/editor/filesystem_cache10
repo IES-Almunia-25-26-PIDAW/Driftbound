@@ -1,5 +1,5 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1781451029
+::res://::1781451749
 icon.svg::CompressedTexture2D::1323068058352964167::1781433683::1781434316::1::::<><><>0<>0<>5d75e9c7d3dbe4a433a5e652983d08f6<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 tile_map.tscn::PackedScene::1237620725757007467::1781433683::0::1::::<><><>0<>0<><>::
 Vegetation.png::CompressedTexture2D::9001935149484411645::1781433682::1781434316::1::::<><><>0<>0<>c17c4f156b432f390b19b39751c11bdb<>res://.godot/imported/Vegetation.png-9e42cc5c447ed3f72448180bd37b8d54.ctex::
@@ -291,10 +291,10 @@ CamaraMovement.gd::GDScript::1674816517183799686::1781433682::0::1::::<>Camera2D
 Chunk.gd::GDScript::495965583781692633::1781433682::0::1::::Chunk<>Node<><>0<>0<><>::
 ChunkManager.gd::GDScript::2648989021259378053::1781433682::0::1::::<>TileMap<><>0<>0<><>::
 ChunkScene.tscn::PackedScene::3503320574073251610::1781450120::0::1::::<><><>0<>0<><>::uid://hv5h0a1bdet::::res://World/Water_tiles.png<>uid://d1ius6tbnfynl::::res://Vegetation.png<>uid://bd0gpyiwm17fl::::res://ChunkScene/ChunkManager.gd<>uid://jwc0e77ohjd7::::res://Interfaz de Combate/interfaz_en_combate.tscn<>uid://can0vqgo8c1oh::::res://MenuPausa/menu_pausa.tscn
-::res://Cofre/::1781450672
-cofre.gd::GDScript::466975377750017205::1781446801::0::1::::Cofre<>StaticBody2D<><>0<>0<><>::
-cofre.tscn::PackedScene::1944806284134563129::1781446801::0::1::::<><><>0<>0<><>::uid://bwrd7dbeki52q::::res://assets/sprites/Cofre-Mimic.png<>uid://gwhas1rtdmxp::::res://Cofre/cofre.gd
-prueba.tscn::PackedScene::1884850397676859588::1781450672::0::1::::<><><>0<>0<><>::uid://3s3l1disrynf::::res://Player/Player.tscn<>uid://dmtfrihtpcfyq::::res://Cofre/Mimic/mimic.tscn<>uid://2ycw7yl2k834::::res://Cofre/cofre.tscn<>uid://jwc0e77ohjd7::::res://Interfaz de Combate/interfaz_en_combate.tscn
+::res://Cofre/::1781451563
+cofre.gd::GDScript::466975377750017205::1781451480::0::1::::Cofre<>StaticBody2D<><>0<>0<><>::
+cofre.tscn::PackedScene::1944806284134563129::1781451480::0::1::::<><><>0<>0<><>::uid://bwrd7dbeki52q::::res://assets/sprites/Cofre-Mimic.png<>uid://gwhas1rtdmxp::::res://Cofre/cofre.gd
+prueba.tscn::PackedScene::1884850397676859588::1781451563::0::1::::<><><>0<>0<><>::uid://3s3l1disrynf::::res://Player/Player.tscn<>uid://dmtfrihtpcfyq::::res://Cofre/Mimic/mimic.tscn<>uid://2ycw7yl2k834::::res://Cofre/cofre.tscn<>uid://jwc0e77ohjd7::::res://Interfaz de Combate/interfaz_en_combate.tscn
 ::res://Cofre/Mimic/::1781449492
 character_body_2d.tscn::PackedScene::5803157119220121803::1781441520::0::1::::<><><>0<>0<><>::uid://bwrd7dbeki52q::::res://assets/sprites/Cofre-Mimic.png<>uid://bnpl6542ntf6g::::res://Enemigos/hitbox_component.tscn<>uid://c05es82k76lxk::::res://Player/Health/health_component.tscn
 mimic.gd::GDScript::2971578520906316293::1781449369::0::1::::CofreMimic<>CharacterBody2D<><>0<>0<><>::
@@ -358,9 +358,9 @@ stamina_component.gd::GDScript::2961810883727225956::1781433682::0::1::::Stamina
 elemento_icono.gd::GDScript::7001831829517312220::1781433682::0::1::::<>TextureRect<><>0<>0<><>::
 interfaz_en_combate.gd::GDScript::5779071935231456691::1781433682::0::1::::<>Control<><>0<>0<><>::
 menu_pausa.gd::GDScript::6011025842382256763::1781433682::0::1::::<>Control<><>0<>0<><>::
-::res://Proyectiles/::1781447821
-proyectil.gd::GDScript::4342031314826445596::1781447821::0::1::::Proyectil<>Area2D<><>0<>0<><>::
-proyectil.tscn::PackedScene::1380892486653261281::1781447821::0::1::::<><><>0<>0<><>::uid://b24kvekt0x805::::res://Proyectiles/proyectil.gd
+::res://Proyectiles/::1781451526
+proyectil.gd::GDScript::4342031314826445596::1781451526::0::1::::Proyectil<>Area2D<><>0<>0<><>::
+proyectil.tscn::PackedScene::1380892486653261281::1781451526::0::1::::<><><>0<>0<><>::uid://b24kvekt0x805::::res://Proyectiles/proyectil.gd
 ::res://test/::1781433683
 testWorldGenerator.gd::GDScript::8223855554571355242::1781433683::0::1::::<>GutTest<><>0<>0<><>::
 ::res://World/::1781434316

@@ -39,6 +39,12 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "VOLVER AL MENU PRINCIPAL"
 
+[node name="BotonGuardar" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "GUARDAR"
+
 [node name="BotonConfiguracion" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
@@ -183,6 +189,7 @@ text = "Volver"
 
 [connection signal="pressed" from="VBoxContainer/BotonContinuar" to="." method="_on_boton_continuar_pressed"]
 [connection signal="pressed" from="VBoxContainer/BotonMenuPrincipal" to="." method="_on_boton_menu_principal_pressed"]
+[connection signal="pressed" from="VBoxContainer/BotonGuardar" to="." method="_on_boton_guardar_pressed"]
 [connection signal="pressed" from="VBoxContainer/BotonConfiguracion" to="." method="_on_boton_configuracion_pressed"]
 [connection signal="pressed" from="PanelControles/VBoxContainer/FilaArriba/BotonArriba" to="." method="_on_boton_arriba_pressed"]
 [connection signal="pressed" from="PanelControles/VBoxContainer/FilaAbajo/BotonAbajo" to="." method="_on_boton_abajo_pressed"]

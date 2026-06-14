@@ -1,5 +1,2 @@
-res://Proyectiles/proyectil.tscn
-res://Proyectiles/proyectil.gd
-res://Cofre/cofre.tscn
-res://Cofre/cofre.gd
-res://Cofre/prueba.tscn
+res://MenuPausa/menu_pausa.tscn
+res://Player/UI/menu_pausa.gd
