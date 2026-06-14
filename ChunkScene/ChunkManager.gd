@@ -11,6 +11,8 @@ signal creandoChunk()
 var spawn_timer: Timer
 var Player : CharacterBody2D
 
+var posicion_spawn_jugador
+
 func _ready() -> void:
 	
 	# --- CONFIGURACIÓN DEL TIMER POR CÓDIGO ---
@@ -43,21 +45,37 @@ func dibujar_tiles():
 					var pos = Vector2i(x * escala + i, y * escala + j)
 					
 					if(tile.tileId == Vector2i(0,0)):
-						set_cell(0, pos, 0, Vector2i(2,2), 0)
+						set_cell(0, pos, 1, Vector2i(5,22), 0)
 					if(tile.tileId == Vector2i(1,0)):
 						set_cell(0, pos, 0, Vector2i(2,2), 0)
 					if(tile.tileId == Vector2i(2,0)):
-						set_cell(0, pos, 0, Vector2i(2,2), 0)
+						set_cell(0, pos, 1, Vector2i(6,10), 0)
 					if(tile.tileId == Vector2i(3,0)):
 						set_cell(0, pos, 0, Vector2i(2,7), 0)
 					if(tile.tileId == Vector2i(4,0)):
 						set_cell(0, pos, 0, Vector2i(2,7), 0)
 						
+func calcular_punto_spawn_tierra():
+	# 1. Extraemos todas las casillas que son tierra en una sola línea limpia
+	var tierras = chunk_data.chunkTiles.duplicate() # Evitamos alterar la matriz original
+	var casillas = []
+	for row in tierras: casillas.append_array(row.filter(func(tile): return tile.tileId.x in [0, 1, 2]))
+	
+	if casillas.is_empty(): return
+	
+	# 2. Elegimos una casilla lógica al azar
+	var casilla_elegida = casillas[randi() % casillas.size()].coordinates
+	
+	# 3. Calculamos la posición real escalada (100) con el offset aleatorio centrado
+	posicion_spawn_jugador = map_to_local(casilla_elegida + Vector2i(randi_range(35, 65), randi_range(35, 65)))
+	print(posicion_spawn_jugador)
+						
 func spawnear_jugador():
 	if jugador:
 		add_child(jugador)
 		Player = jugador.get_child(0)
-		jugador.global_position = Vector2(0,0)
+		calcular_punto_spawn_tierra()
+		jugador.global_position = posicion_spawn_jugador
 		
 		# 2. Creamos la cámara por código
 		var camera = Camera2D.new()
