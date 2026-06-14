@@ -37,4 +37,20 @@ func Spawneable(spawnCoodinates : Vector2i, World : WordlMap):
 		return false
 	else:
 		return true
+		
+func es_centro_valido(centro: Vector2i) -> bool:
+	# 1. Comprobamos los límites de la matriz dinámicamente usando el tamaño del Array
+	var limite_x = Map.size()
+	if limite_x == 0: return false
+	var limite_y = Map[0].size()
+	
+	# Dejamos un margen de 1 tile para evitar desbordamientos con el cálculo del chunk (3x3)
+	if centro.x < 1 or centro.x >= limite_x - 1:
+		return false
+	if centro.y < 1 or centro.y >= limite_y - 1:
+		return false
+		
+	# 2. Reutilizamos tu función Spawneable para saber si es transitable (tierra/arena)
+	# self se refiere a esta misma instancia de WordlMap
+	return Spawneable(centro, self)
 	

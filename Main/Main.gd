@@ -26,7 +26,8 @@ var exito_carga
 
 
 func _ready() -> void:
-
+	
+	Global.transicion_chunk_solicitada.connect(_on_transicion_solicitada_desde_global)
 	exito_carga = await cargar_partida_guardada()
 	
 	MenuScene = Menu.instantiate()
@@ -38,6 +39,20 @@ func _ready() -> void:
 	MenuScene.cargar_partida_pulsada.connect(_on_cargar_partida_solicitada)
 	
 	get_tree().current_scene.add_child(MenuScene)
+	
+
+func _on_transicion_solicitada_desde_global(direccion: Vector2i, centro: Vector2i ,World : WordlMap):
+	cargar_nuevo_chunk(direccion, centro,World)
+
+# Tu función de carga limpia (ya no necesita conectar señales manualmente)
+func cargar_nuevo_chunk(direccion_viaje: Vector2i, centro: Vector2i, World : WordlMap):
+	
+	var chunk_data = Chunk.new(centro, World)
+	var instancia = chunk_scene.instantiate()
+	var nuevo_chunk_manager = instancia.get_node("TileMap")
+	add_child(instancia)
+	nuevo_chunk_manager.setup(chunk_data, direccion_viaje)
+	
 
 func _on_nueva_partida_solicitada() -> void:
 	
@@ -61,10 +76,6 @@ func _on_cargar_partida_solicitada() -> void:
 	# 2. Llamamos a tu función (la que limpia la carpeta y crea el generador)
 	cargar_partida_guardada()
 
-#Funcion para crear una partido nueva
-func Nueva_Partida():
-	crear_nueva_partida()
-
 #Funcion que se llamara en el Menu Inicial para cargar la partida
 func IniciarPartidaCargada():
 	
@@ -78,6 +89,7 @@ func IniciarPartidaCargada():
 			print("Cargando jugador directamente en el Chunk activo: ", current_chunk_center)
 			var pos_relativa = Vector2(saved_state["player_relative_pos_x"], saved_state["player_relative_pos_y"])
 			cargar_escena_chunk(current_chunk_center, pos_relativa)
+			return
 			
 	#El jugador estaba en el mapa global (o no había estado guardado pero sí se habia creado un mapa)
 	print("Cargando jugador en el mapa global.")
@@ -202,7 +214,7 @@ func cargar_escena_chunk(center: Vector2i, player_pos: Vector2) -> void:
 	get_tree().current_scene.add_child(scene)
 	
 	# Configuramos el TileMap del chunk
-	tilemap.setup(currentChunk)
+	tilemap.setup(currentChunk, Vector2i.ZERO)
 	
 	# Si venimos de una carga, reposicionamos al jugador en sus coordenadas guardadas
 	if player_pos != Vector2.ZERO and tilemap.jugador:
@@ -238,3 +250,4 @@ func guardar_partida_completa() -> void:
 		player_relative_position
 	)
 	print("¡Progreso del mundo y jugador guardados correctamente!")
+	

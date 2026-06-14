@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://3s3l1disrynf"]
+[gd_scene format=4 uid="uid://3s3l1disrynf"]
 
 [ext_resource type="Script" uid="uid://bjg00rp3n1urd" path="res://Player/Player/Player_script.gd" id="1_gfjak"]
 [ext_resource type="Script" uid="uid://1w2l3v3kg6sq" path="res://Player/Player/area_2d.gd" id="2_524rm"]
@@ -18,14 +18,14 @@ radius = 22.090721
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gfjak"]
 size = Vector2(12, 42)
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="Node2D" unique_id=1858414727]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-collision_layer = 2
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1635858011]
+collision_layer = 258
 collision_mask = 5
 script = ExtResource("1_gfjak")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1297477225]
 texture_filter = 1
 position = Vector2(0, -9.536743e-07)
 scale = Vector2(2.1875, 2.34375)
@@ -60,39 +60,37 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "080f4a2765631a2566cccedc2801dd52"
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D/Sprite2D"]
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D/Sprite2D" unique_id=800486127]
 
-[node name="Area2D" type="Area2D" parent="CharacterBody2D"]
+[node name="Area2D" type="Area2D" parent="CharacterBody2D" unique_id=705236505]
 collision_layer = 8
 collision_mask = 4
 script = ExtResource("2_524rm")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D" unique_id=2007170597]
 position = Vector2(29, 1)
 shape = SubResource("CircleShape2D_4kuee")
 
-[node name="HealthComponent" parent="CharacterBody2D" instance=ExtResource("3_tpg5x")]
+[node name="HealthComponent" parent="CharacterBody2D" unique_id=1941047274 instance=ExtResource("3_tpg5x")]
 visible = false
 collision_layer = 2
 collision_mask = 0
 maxHealth = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=800274003]
 visible = false
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_gfjak")
 
-[node name="Movement" parent="CharacterBody2D" instance=ExtResource("4_524rm")]
+[node name="Movement" parent="CharacterBody2D" unique_id=1960086305 instance=ExtResource("4_524rm")]
 
-[node name="ManaComponent" parent="CharacterBody2D" instance=ExtResource("5_c3xxp")]
+[node name="ManaComponent" parent="CharacterBody2D" unique_id=1903499335 instance=ExtResource("5_c3xxp")]
 
-[node name="StaminaComponent" type="Node" parent="CharacterBody2D"]
+[node name="StaminaComponent" type="Node" parent="CharacterBody2D" unique_id=960113029]
 script = ExtResource("5_tpg5x")
 metadata/_custom_type_script = "uid://bigyue703oqn1"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D"]
-libraries = {
-&"": ExtResource("7_vlldt")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D" unique_id=43182166]
+libraries/ = ExtResource("7_vlldt")
 
 [connection signal="animation_finished" from="CharacterBody2D/AnimationPlayer" to="CharacterBody2D" method="_on_animation_player_animation_finished"]

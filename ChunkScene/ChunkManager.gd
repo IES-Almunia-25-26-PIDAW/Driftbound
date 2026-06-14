@@ -13,6 +13,8 @@ var Player : CharacterBody2D
 
 var posicion_spawn_jugador
 
+signal cambiar_de_chunk(direccion: Vector2i)
+
 func _ready() -> void:
 	
 	# --- CONFIGURACIÓN DEL TIMER POR CÓDIGO ---
@@ -30,6 +32,14 @@ func _ready() -> void:
 	
 	# 4. Añadimos el Timer como hijo de este nodo para que empiece a funcionar
 	add_child(spawn_timer)
+	
+func setup(_chunk_data, direccion_entrada):
+	chunk_data = _chunk_data
+	emit_signal("creandoChunk")
+	dibujar_tiles()
+	spawnear_jugador(direccion_entrada)
+	generar_limites_colision()
+	Global.chunk_actual = chunk_data
 
 func dibujar_tiles():
 	var escala = 100
@@ -55,13 +65,101 @@ func dibujar_tiles():
 					if(tile.tileId == Vector2i(4,0)):
 						set_cell(0, pos, 0, Vector2i(2,7), 0)
 						
+func generar_limites_colision():
+	# 1. Calculamos el tamaño real del mapa en píxeles
+	var tamaño_celda_pixel = tile_set.tile_size.x
+	var ancho_total = 3 * 100 * tamaño_celda_pixel # 3 casillas de chunk * 100 de escala
+	var alto_total = 3 * 100 * tamaño_celda_pixel
+	var grosor_borde = 20.0 # El ancho de la zona que activa el cambio
+	
+	# Configuración de los 4 bordes: [Dirección lógica, Posición Central, Tamaño de la Caja]
+	var bordes = [
+		{
+			"dir": Vector2i(0, -1), # ARRIBA
+			"pos": Vector2(ancho_total / 2.0, -grosor_borde / 2.0),
+			"size": Vector2(ancho_total, grosor_borde)
+		},
+		{
+			"dir": Vector2i(0, 1),  # ABAJO
+			"pos": Vector2(ancho_total / 2.0, alto_total + (grosor_borde / 2.0)),
+			"size": Vector2(ancho_total, grosor_borde)
+		},
+		{
+			"dir": Vector2i(-1, 0), # IZQUIERDA
+			"pos": Vector2(-grosor_borde / 2.0, alto_total / 2.0),
+			"size": Vector2(grosor_borde, alto_total)
+		},
+		{
+			"dir": Vector2i(1, 0),  # DERECHA
+			"pos": Vector2(ancho_total + (grosor_borde / 2.0), alto_total / 2.0),
+			"size": Vector2(grosor_borde, alto_total)
+		}
+	]
+	
+	# 2. Creamos los nodos físicamente
+	for datos in bordes:
+		var area = Area2D.new()
+		var collision = CollisionShape2D.new()
+		var box = RectangleShape2D.new()
+		
+		box.size = datos["size"]
+		collision.shape = box
+		area.position = datos["pos"]
+		
+		area.add_child(collision)
+		add_child(area)
+		
+		# Configuramos las máscaras para que SOLO detecte al jugador (Capa 1 por defecto)
+		area.collision_layer = 0 
+		area.collision_mask = 256
+		
+		# Truco de Godot: Le metemos una propiedad dinámica al nodo para identificar su dirección
+		area.set_meta("direccion_chunk", datos["dir"])
+		
+		# Conectamos la señal de colisión
+		area.monitoring = false 
+		
+		area.body_entered.connect(_on_borde_chunk_entered.bind(area))
+		add_child(area)
+		
+	# 🌟 CREAMOS UN PEQUEÑO TEMPORIZADOR DE SEGURIDAD
+	# Espera 0.3 segundos antes de activar los sensores del mapa
+	await get_tree().create_timer(0.3).timeout
+	
+	# Pasado el tiempo de cortesía, encendemos la detección en todas las áreas
+	for child in get_children():
+		if child is Area2D:
+			child.monitoring = true
+	print("🛡️ ¡Sensores de bordes activados de forma segura!")
+
+func _on_borde_chunk_entered(body: Node2D, area_origen: Area2D):
+	print("Llega on borde")
+	if body is Player or body.is_in_group("grupo_jugador"):
+		print("Llega on borde dentro de jugador")
+		var direccion_viaje = area_origen.get_meta("direccion_chunk") as Vector2i
+		var nuevo_centro = chunk_data.center_pos + (direccion_viaje * 3)
+		
+		# Accedemos a la referencia del mapa a través de los datos del chunk
+		var mapa_global = chunk_data.world_reference
+		
+		if mapa_global and mapa_global.es_centro_valido(nuevo_centro):
+			print("Cambiando de zona hacia: ", direccion_viaje)
+			Global.transicion_chunk_solicitada.emit(direccion_viaje, nuevo_centro, chunk_data.world_reference)
+			queue_free()
+		else:
+			print("¡No puedes ir por ahí! El mapa contiguo no es válido o es agua.")
+			if "velocity" in body:
+				body.global_position -= Vector2(direccion_viaje) * 20.0
+						
 func calcular_punto_spawn_tierra():
 	# 1. Extraemos todas las casillas que son tierra en una sola línea limpia
 	var tierras = chunk_data.chunkTiles.duplicate() # Evitamos alterar la matriz original
 	var casillas = []
 	for row in tierras: casillas.append_array(row.filter(func(tile): return tile.tileId.x in [0, 1, 2]))
 	
-	if casillas.is_empty(): return
+	if casillas.is_empty(): 
+		print("Casillas vacio")
+		return
 	
 	# 2. Elegimos una casilla lógica al azar
 	var casilla_elegida = casillas[randi() % casillas.size()].coordinates
@@ -70,26 +168,47 @@ func calcular_punto_spawn_tierra():
 	posicion_spawn_jugador = map_to_local(casilla_elegida + Vector2i(randi_range(35, 65), randi_range(35, 65)))
 	print(posicion_spawn_jugador)
 						
-func spawnear_jugador():
-	if jugador:
-		add_child(jugador)
-		Player = jugador.get_child(0)
+func spawnear_jugador(direccion_entrada: Vector2i):
+	if not jugador: return
+	
+	# Si el jugador ya tenía una cámara de un chunk anterior, la borramos para que no se duplique
+	for child in jugador.get_children():
+		if child is Camera2D:
+			child.queue_free()
+	
+	if jugador.get_parent():
+		jugador.get_parent().remove_child(jugador) # Nos aseguramos de desbancarlo del mapa viejo
+		
+	add_child(jugador)
+	Player = jugador.get_child(0)
+	
+	var tam_tile = tile_set.tile_size.x
+	var ancho_px = 3 * 100 * tam_tile
+	var alto_px = 3 * 100 * tam_tile
+	
+	# 🌟 SUBIMOS EL MARGEN para alejarlo bien de la banda de colisión al aparecer
+	var margen = 90.0 
+	
+	if direccion_entrada == Vector2i.ZERO:
 		calcular_punto_spawn_tierra()
 		jugador.global_position = posicion_spawn_jugador
-		
-		# 2. Creamos la cámara por código
-		var camera = Camera2D.new()
-		
-		# 3. Configuramos las propiedades de la cámara
-		camera.enabled = true
-		camera.position = Vector2.ZERO # (0,0) para que se centre exactamente en el jugador
-		
-		# Opcional: Activamos el suavizado para que el movimiento sea fluido
-		camera.position_smoothing_enabled = true
-		camera.position_smoothing_speed = 6.0 # Velocidad del suavizado
-		
-		# 4. ¡EL TRUCO CRÍTICO!: Añadimos la cámara como HIJA del jugador
-		jugador.add_child(camera)
+	else:
+		# Posicionamos al jugador bien adentrado en el mapa para que no pise el área rival
+		if direccion_entrada == Vector2i(1, 0):    # Salió por la derecha -> Entra por la izquierda
+			jugador.global_position = Vector2(margen, alto_px / 2.0)
+		elif direccion_entrada == Vector2i(-1, 0): # Salió por la izquierda -> Entra por la derecha
+			jugador.global_position = Vector2(ancho_px - margen, alto_px / 2.0)
+		elif direccion_entrada == Vector2i(0, 1):  # Salió por abajo -> Entra por arriba
+			jugador.global_position = Vector2(ancho_px / 2.0, margen)
+		elif direccion_entrada == Vector2i(0, -1): # Salió por arriba -> Entra por abajo
+			jugador.global_position = Vector2(ancho_px / 2.0, alto_px - margen)
+
+	var camera = Camera2D.new()
+	camera.enabled = true
+	camera.position = Vector2.ZERO
+	camera.position_smoothing_enabled = true
+	camera.position_smoothing_speed = 6.0
+	jugador.add_child(camera)
 		
 func _on_spawn_timer_timeout() -> void:
 	# Cada vez que el temporizador llegue a 0, ejecutamos el spawn
@@ -122,9 +241,3 @@ func get_player_pos() -> Vector2:
 		return Player.global_position
 	return Vector2.ZERO
 		
-
-func setup(_chunk_data):
-	chunk_data = _chunk_data
-	emit_signal("creandoChunk")
-	dibujar_tiles()
-	spawnear_jugador()
