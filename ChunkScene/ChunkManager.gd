@@ -163,7 +163,7 @@ func spawnear_cofre_inicial():
 	if offset.length() < 100:
 		offset = offset.normalized() * 120
 		
-	nuevo_objeto.global_position = posicion_spawn_jugador + offset
+	nuevo_objeto.global_position = Player.global_position + offset
 
 	add_child(nuevo_objeto)
 
