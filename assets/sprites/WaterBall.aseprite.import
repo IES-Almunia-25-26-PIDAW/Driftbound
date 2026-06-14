@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://bl4tqwemkq751"
+path="res://.godot/imported/WaterBall.aseprite-dd4afe6cddad9394558330c5cda67113.res"
+
+[deps]
+
+source_file="res://assets/sprites/WaterBall.aseprite"
+dest_files=["res://.godot/imported/WaterBall.aseprite-dd4afe6cddad9394558330c5cda67113.res"]
+
+[params]
+

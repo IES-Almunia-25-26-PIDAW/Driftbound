@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://chq0ycd6fe1lh"
+path="res://.godot/imported/MarcoFuego.aseprite-a9c857e7dc31cefd0c45579557730cb7.res"
+
+[deps]
+
+source_file="res://assets/sprites/MarcoFuego.aseprite"
+dest_files=["res://.godot/imported/MarcoFuego.aseprite-a9c857e7dc31cefd0c45579557730cb7.res"]
+
+[params]
+

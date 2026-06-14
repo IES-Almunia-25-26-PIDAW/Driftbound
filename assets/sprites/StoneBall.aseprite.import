@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://dowhnxojjjyoo"
+path="res://.godot/imported/StoneBall.aseprite-87cf5293dd7937cc20b238d141fbf8a5.res"
+
+[deps]
+
+source_file="res://assets/sprites/StoneBall.aseprite"
+dest_files=["res://.godot/imported/StoneBall.aseprite-87cf5293dd7937cc20b238d141fbf8a5.res"]
+
+[params]
+

@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://jwc0e77ohjd7"]
+
+[ext_resource type="Script" uid="uid://cs8otxh3eogba" path="res://Scripts/Health/health_bar.gd" id="1_qcnv5"]
+[ext_resource type="Script" uid="uid://colop83gj3snb" path="res://Scripts/UI/interfaz_en_combate.gd" id="1_rptgv"]
+[ext_resource type="Script" uid="uid://e5q65ll2r8im" path="res://Scripts/Stamina/stamina_bar.gd" id="3_vib5y"]
+[ext_resource type="Script" uid="uid://cj1w5df10ej4w" path="res://Scripts/Mana/mana_bar.gd" id="4_8wnel"]
+[ext_resource type="Script" uid="uid://c600faht1hbvw" path="res://Scripts/UI/elemento_icono.gd" id="5_baam8"]
+
+[sub_resource type="Gradient" id="Gradient_trwu0"]
+offsets = PackedFloat32Array(0, 0.98689955, 1)
+colors = PackedColorArray(0.24313726, 0.24313726, 0.24313726, 1, 0.24313726, 0.24313726, 0.24313726, 1, 0.24313726, 0.24313726, 0.24313726, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ns38r"]
+gradient = SubResource("Gradient_trwu0")
+width = 400
+height = 30
+
+[sub_resource type="Gradient" id="Gradient_50v2t"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vemwy"]
+gradient = SubResource("Gradient_50v2t")
+width = 400
+height = 30
+
+[sub_resource type="Gradient" id="Gradient_rptgv"]
+offsets = PackedFloat32Array(0, 0.6069869, 0.83842796, 1)
+colors = PackedColorArray(0.24313726, 0.24313726, 0.24313726, 1, 0.24313726, 0.24313726, 0.24313726, 1, 0.24313726, 0.24313726, 0.24313726, 1, 0.24313726, 0.24313726, 0.24313726, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vib5y"]
+gradient = SubResource("Gradient_rptgv")
+width = 400
+height = 10
+
+[sub_resource type="Gradient" id="Gradient_8wnel"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_baam8"]
+gradient = SubResource("Gradient_8wnel")
+width = 400
+height = 10
+
+[sub_resource type="Gradient" id="Gradient_vib5y"]
+colors = PackedColorArray(0.24313726, 0.24313726, 0.24313726, 1, 0.24313726, 0.24313726, 0.24313726, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8wnel"]
+gradient = SubResource("Gradient_vib5y")
+width = 300
+height = 20
+
+[sub_resource type="Gradient" id="Gradient_baam8"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_l6aa4"]
+gradient = SubResource("Gradient_baam8")
+width = 300
+height = 20
+
+[node name="InterfazEnCombate" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rptgv")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 14.0
+offset_right = 177.0
+offset_bottom = 43.0
+
+[node name="HealthBar" type="TextureProgressBar" parent="MarginContainer"]
+layout_mode = 2
+max_value = 3.0
+value = 1.0
+texture_under = SubResource("GradientTexture2D_ns38r")
+texture_progress = SubResource("GradientTexture2D_vemwy")
+tint_progress = Color(0.68482155, 0.26260805, 0.28263938, 1)
+script = ExtResource("1_qcnv5")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 1005.0
+offset_top = 9.0
+offset_right = 1118.0
+offset_bottom = 51.0
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Score: 0"
+horizontal_alignment = 3
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 52.0
+offset_right = 415.0
+offset_bottom = 62.0
+
+[node name="StaminaBar" type="TextureProgressBar" parent="MarginContainer3"]
+layout_mode = 2
+value = 10.0
+texture_under = SubResource("GradientTexture2D_vib5y")
+texture_progress = SubResource("GradientTexture2D_baam8")
+tint_progress = Color(0.51403236, 0.5115317, 0, 1)
+script = ExtResource("3_vib5y")
+
+[node name="MarginContainer4" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 68.0
+offset_right = 413.0
+offset_bottom = 89.0
+
+[node name="ManaBar" type="TextureProgressBar" parent="MarginContainer4"]
+layout_mode = 2
+value = 20.0
+texture_under = SubResource("GradientTexture2D_8wnel")
+texture_progress = SubResource("GradientTexture2D_l6aa4")
+tint_progress = Color(0, 0.53057927, 0.53164935, 1)
+script = ExtResource("4_8wnel")
+
+[node name="MarcoElemento" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.013
+anchor_top = 0.147
+anchor_right = 0.013
+anchor_bottom = 0.147
+offset_left = 0.024000168
+offset_top = -0.2559967
+offset_right = 40.024002
+offset_bottom = 39.744003
+stretch_mode = 3
+
+[node name="ElementoIcono" type="TextureRect" parent="MarcoElemento"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+stretch_mode = 3
+script = ExtResource("5_baam8")

@@ -1,0 +1,238 @@
+[gd_scene format=3 uid="uid://cbgdu4d3cyt28"]
+
+[ext_resource type="Script" uid="uid://c44t0duxi35tq" path="res://MenuInicio/menu_principal.gd" id="1_h2oug"]
+[ext_resource type="Texture2D" uid="uid://c6knlo8h4x0fa" path="res://assets/sprites/Engranaje.tres" id="2_cmqnb"]
+[ext_resource type="Texture2D" uid="uid://cabr3vj82ant4" path="res://assets/sprites/Puerta.png" id="2_ec4ys"]
+[ext_resource type="Texture2D" uid="uid://cqfixe65i3c6f" path="res://assets/sprites/Fondo.png" id="2_y5np6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ec4ys"]
+bg_color = Color(0.41568628, 0.43137255, 0.45882353, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.29913282, 0.13499403, 0.03991387, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y5np6"]
+bg_color = Color(0.3366076, 0.33660764, 0.33660752, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.29803923, 0.13333334, 0.039215688, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iw06e"]
+bg_color = Color(0.41568628, 0.43137255, 0.45882353, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.29803923, 0.13333334, 0.039215688, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4k0gc"]
+bg_color = Color(0.3372549, 0.3372549, 0.3372549, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.29803923, 0.13333334, 0.039215688, 1)
+border_blend = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y5np6"]
+atlas = ExtResource("2_ec4ys")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iw06e"]
+atlas = ExtResource("2_ec4ys")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_phqj7"]
+bg_color = Color(0.22745098, 0.43529412, 0.43529412, 1)
+
+[node name="MenuPrincipal" type="Control" unique_id=1391161930]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_h2oug")
+
+[node name="Fondo" type="TextureRect" parent="." unique_id=674315775]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("2_y5np6")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=869778878]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="BotonNuevaPartida" type="Button" parent="VBoxContainer" unique_id=1143577998]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_ec4ys")
+theme_override_styles/hover = SubResource("StyleBoxFlat_y5np6")
+text = "Nueva Partida"
+
+[node name="BotonContinuar" type="Button" parent="VBoxContainer" unique_id=340244928]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_iw06e")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4k0gc")
+text = "Continuar"
+
+[node name="BotonSalir" type="TextureButton" parent="." unique_id=1228375495]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 0
+offset_left = 7.0
+offset_top = 550.0
+offset_right = 96.0
+offset_bottom = 632.0
+size_flags_horizontal = 4
+texture_normal = SubResource("AtlasTexture_y5np6")
+texture_hover = SubResource("AtlasTexture_iw06e")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="BotonConfig" type="TextureButton" parent="." unique_id=907168116]
+texture_filter = 1
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 0
+offset_left = 83.0
+offset_top = 528.0
+offset_right = 211.0
+offset_bottom = 656.0
+size_flags_horizontal = 4
+texture_normal = ExtResource("2_cmqnb")
+ignore_texture_size = true
+stretch_mode = 0
+flip_h = true
+
+[node name="PanelControles" type="Panel" parent="." unique_id=1742864782]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1112.0
+offset_bottom = 609.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_phqj7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelControles" unique_id=1153401580]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = -79.0
+offset_right = 47.0
+offset_bottom = 79.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="FilaArriba" type="HBoxContainer" parent="PanelControles/VBoxContainer" unique_id=566271934]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaArriba" unique_id=500382862]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Arriba: "
+
+[node name="BotonArriba" type="Button" parent="PanelControles/VBoxContainer/FilaArriba" unique_id=723184260]
+layout_mode = 2
+
+[node name="FilaAbajo" type="HBoxContainer" parent="PanelControles/VBoxContainer" unique_id=1245712180]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaAbajo" unique_id=686099442]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Abajo: "
+
+[node name="BotonAbajo" type="Button" parent="PanelControles/VBoxContainer/FilaAbajo" unique_id=11994289]
+layout_mode = 2
+
+[node name="FilaDerecha" type="HBoxContainer" parent="PanelControles/VBoxContainer" unique_id=488729771]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaDerecha" unique_id=267075648]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Derecha: "
+
+[node name="BotonDerecha" type="Button" parent="PanelControles/VBoxContainer/FilaDerecha" unique_id=994591108]
+layout_mode = 2
+
+[node name="FilaIzquierda" type="HBoxContainer" parent="PanelControles/VBoxContainer" unique_id=1282142815]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaIzquierda" unique_id=1082274592]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Izquierda: "
+
+[node name="BotonIzquierda" type="Button" parent="PanelControles/VBoxContainer/FilaIzquierda" unique_id=442115828]
+layout_mode = 2
+
+[node name="FilaCorrer" type="HBoxContainer" parent="PanelControles/VBoxContainer" unique_id=967239482]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaCorrer" unique_id=607857988]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Correr: "
+
+[node name="BotonCorrer" type="Button" parent="PanelControles/VBoxContainer/FilaCorrer" unique_id=1291557547]
+layout_mode = 2
+
+[node name="FilaAtacar" type="HBoxContainer" parent="PanelControles/VBoxContainer" unique_id=1570247355]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaAtacar" unique_id=489920061]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Atacar: "
+
+[node name="BotonAtacar" type="Button" parent="PanelControles/VBoxContainer/FilaAtacar" unique_id=516813006]
+layout_mode = 2
+
+[node name="BotonVolver" type="Button" parent="PanelControles" unique_id=351448147]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.49300003
+anchor_top = 0.84400004
+anchor_right = 0.49300003
+anchor_bottom = 0.84400004
+offset_left = -82.936035
+offset_top = -59.756042
+offset_right = 85.063965
+offset_bottom = -13.7560425
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Volver"
+
+[connection signal="pressed" from="VBoxContainer/BotonNuevaPartida" to="." method="_on_boton_nueva_partida_pressed"]
+[connection signal="pressed" from="VBoxContainer/BotonContinuar" to="." method="_on_boton_continuar_pressed"]
+[connection signal="pressed" from="BotonSalir" to="." method="_on_boton_salir_pressed"]
+[connection signal="pressed" from="BotonConfig" to="." method="_on_boton_config_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaArriba/BotonArriba" to="." method="_on_boton_arriba_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaAbajo/BotonAbajo" to="." method="_on_boton_abajo_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaDerecha/BotonDerecha" to="." method="_on_boton_derecha_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaIzquierda/BotonIzquierda" to="." method="_on_boton_izquierda_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaCorrer/BotonCorrer" to="." method="_on_boton_correr_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaAtacar/BotonAtacar" to="." method="_on_boton_atacar_pressed"]
+[connection signal="pressed" from="PanelControles/BotonVolver" to="." method="_on_boton_volver_pressed"]

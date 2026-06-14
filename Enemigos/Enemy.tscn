@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://b4dvos815yuux"]
+
+[ext_resource type="Script" uid="uid://dqv6ls1ucdq84" path="res://Enemigos/Enemy.gd" id="1_0p5kn"]
+[ext_resource type="Texture2D" uid="uid://bpbusbgoqae28" path="res://assets/sprites/Enemy.png" id="2_ujo5d"]
+[ext_resource type="PackedScene" uid="uid://bnpl6542ntf6g" path="res://Enemigos/hitbox_component.tscn" id="3_fp648"]
+[ext_resource type="PackedScene" uid="uid://bjdawi53epci5" path="res://Player/movement.tscn" id="5_qv406"]
+[ext_resource type="PackedScene" uid="uid://c05es82k76lxk" path="res://Player/Health/health_component.tscn" id="6_3koi5"]
+[ext_resource type="PackedScene" uid="uid://c66u8hmckp2ro" path="res://Enemigos/sensor.tscn" id="6_trwu0"]
+[ext_resource type="Script" uid="uid://bmc16ya1ust8v" path="res://Enemigos/HealthBarEnemy.gd" id="7_0p5kn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gfjak"]
+size = Vector2(12, 42)
+
+[sub_resource type="Gradient" id="Gradient_0vly3"]
+colors = PackedColorArray(0.24313726, 0.24313726, 0.24313726, 1, 0.24313726, 0.24313726, 0.24313726, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0vly3"]
+gradient = SubResource("Gradient_0vly3")
+width = 40
+height = 6
+
+[sub_resource type="Gradient" id="Gradient_50v2t"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qv406"]
+gradient = SubResource("Gradient_50v2t")
+width = 40
+height = 6
+
+[node name="Enemy" type="Node2D" unique_id=773496352]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1738324706]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_0p5kn")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1172110454]
+position = Vector2(0.059999753, -0.476)
+scale = Vector2(2.1837502, 2.4077501)
+texture = ExtResource("2_ujo5d")
+hframes = 4
+frame = 2
+
+[node name="HitboxComponent" parent="CharacterBody2D" unique_id=1705244659 instance=ExtResource("3_fp648")]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=719244797]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_gfjak")
+
+[node name="HealthComponent" parent="CharacterBody2D" unique_id=623166723 instance=ExtResource("6_3koi5")]
+collision_layer = 4
+collision_mask = 0
+maxHealth = 15
+
+[node name="Sensor" parent="CharacterBody2D" unique_id=879865712 instance=ExtResource("6_trwu0")]
+collision_layer = 0
+collision_mask = 2
+
+[node name="Movement" parent="CharacterBody2D" unique_id=1205699881 instance=ExtResource("5_qv406")]
+
+[node name="HealthBar" type="TextureProgressBar" parent="CharacterBody2D" unique_id=1067030208 node_paths=PackedStringArray("health_component")]
+offset_left = -20.0
+offset_top = -43.0
+offset_right = 20.0
+offset_bottom = -3.0
+max_value = 3.0
+value = 1.0
+texture_under = SubResource("GradientTexture2D_0vly3")
+texture_progress = SubResource("GradientTexture2D_qv406")
+tint_progress = Color(0.68482155, 0.26260805, 0.28263938, 1)
+script = ExtResource("7_0p5kn")
+health_component = NodePath("../HealthComponent")

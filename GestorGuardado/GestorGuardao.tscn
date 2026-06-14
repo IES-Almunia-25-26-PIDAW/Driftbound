@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bj6qalggtbpea"]
+
+[ext_resource type="Script" uid="uid://cbpj67wq3ouj6" path="res://GestorGuardado/GestorGuardado.gd" id="1_a4eqw"]
+
+[node name="GestorGuardao" type="Node2D" unique_id=612375830]
+script = ExtResource("1_a4eqw")

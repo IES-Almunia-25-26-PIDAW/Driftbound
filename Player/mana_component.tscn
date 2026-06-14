@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://mlbhnyjnlnri"]
+
+[ext_resource type="Script" uid="uid://o0qb3ntyj4g1" path="res://Player/Mana/mana_component.gd" id="1_u1rkl"]
+
+[node name="ManaComponent" type="Node" unique_id=2067836727]
+script = ExtResource("1_u1rkl")
