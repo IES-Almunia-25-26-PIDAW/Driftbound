@@ -100,13 +100,10 @@ func _on_boton_configuracion_pressed() -> void:
 	panel_controles.show() # ¡Ahora sí abre la pantalla de controles!
 
 func _on_boton_menu_principal_pressed() -> void:
-	get_tree().paused = false
-	get_tree().change_scene_to_file(ESCENA_MENU)
+	Global.solicitar_volver_al_menu()
 	
 func _on_boton_guardar_pressed() -> void:
-	#AQUI VA TU FUNCION DE GUARDAR JUANAN
-	pass 
-
+	Global.solicitar_guardado()
 # --- Conexión de Señales del Panel de Controles de Pausa ---
 
 func _on_boton_volver_pressed() -> void:

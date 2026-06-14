@@ -35,13 +35,21 @@ func _ready() -> void:
 	# 4. Añadimos el Timer como hijo de este nodo para que empiece a funcionar
 	add_child(spawn_timer)
 	
-func setup(_chunk_data, direccion_entrada):
+func setup(_chunk_data, vector_entrada, es_posicion_directa: bool = false):
 	chunk_data = _chunk_data
 	emit_signal("creandoChunk")
 	dibujar_tiles()
-	spawnear_jugador(direccion_entrada)
+	
+	# Le pasamos el flag al método de spawneo
+	spawnear_jugador(vector_entrada, es_posicion_directa)
+	Global.Player = Player
 	generar_limites_colision()
+	
 	Global.chunk_actual = chunk_data
+	
+	# 🌟 ACTUALIZACIÓN AUTOMÁTICA EN MEMORIA Y LLAMADA AL AUTO-GUARDADO
+	Global.actualizar_datos_guardado(chunk_data.center_pos, get_player_pos())
+	Global.solicitar_guardado()
 
 func dibujar_tiles():
 	var escala = 100
@@ -215,40 +223,42 @@ func calcular_punto_spawn_tierra():
 	posicion_spawn_jugador = map_to_local(casilla_elegida + Vector2i(randi_range(35, 65), randi_range(35, 65)))
 	print(posicion_spawn_jugador)
 						
-func spawnear_jugador(direccion_entrada: Vector2i):
+func spawnear_jugador(vector_entrada, es_posicion_directa: bool):
 	if not jugador: return
 	
-	# Si el jugador ya tenía una cámara de un chunk anterior, la borramos para que no se duplique
 	for child in jugador.get_children():
 		if child is Camera2D:
 			child.queue_free()
-	
 	if jugador.get_parent():
-		jugador.get_parent().remove_child(jugador) # Nos aseguramos de desbancarlo del mapa viejo
+		jugador.get_parent().remove_child(jugador) 
 		
 	add_child(jugador)
 	Player = jugador.get_child(0)
 	
-	var tam_tile = tile_set.tile_size.x
-	var ancho_px = 3 * 100 * tam_tile
-	var alto_px = 3 * 100 * tam_tile
-	
-	# 🌟 SUBIMOS EL MARGEN para alejarlo bien de la banda de colisión al aparecer
-	var margen = 90.0 
-	
-	if direccion_entrada == Vector2i.ZERO:
-		calcular_punto_spawn_tierra()
-		jugador.global_position = posicion_spawn_jugador
+	# FLUJO A: Recibimos un Vector2 de coordenadas reales exactas
+	if es_posicion_directa:
+		jugador.global_position = vector_entrada as Vector2
+		print("🎯 Jugador cargado directamente desde posición guardada: ", jugador.global_position)
+	# FLUJO B: Recibimos un Vector2i con la dirección cardinal de tránsito
 	else:
-		# Posicionamos al jugador bien adentrado en el mapa para que no pise el área rival
-		if direccion_entrada == Vector2i(1, 0):    # Salió por la derecha -> Entra por la izquierda
-			jugador.global_position = Vector2(margen, alto_px / 2.0)
-		elif direccion_entrada == Vector2i(-1, 0): # Salió por la izquierda -> Entra por la derecha
-			jugador.global_position = Vector2(ancho_px - margen, alto_px / 2.0)
-		elif direccion_entrada == Vector2i(0, 1):  # Salió por abajo -> Entra por arriba
-			jugador.global_position = Vector2(ancho_px / 2.0, margen)
-		elif direccion_entrada == Vector2i(0, -1): # Salió por arriba -> Entra por abajo
-			jugador.global_position = Vector2(ancho_px / 2.0, alto_px - margen)
+		var direccion_entrada = vector_entrada as Vector2i
+		var tam_tile = tile_set.tile_size.x
+		var ancho_px = 3 * 100 * tam_tile
+		var alto_px = 3 * 100 * tam_tile
+		var margen = 90.0 
+		
+		if direccion_entrada == Vector2i.ZERO:
+			calcular_punto_spawn_tierra()
+			jugador.global_position = posicion_spawn_jugador
+		else:
+			if direccion_entrada == Vector2i(1, 0):    
+				jugador.global_position = Vector2(margen, alto_px / 2.0)
+			elif direccion_entrada == Vector2i(-1, 0): 
+				jugador.global_position = Vector2(ancho_px - margen, alto_px / 2.0)
+			elif direccion_entrada == Vector2i(0, 1):  
+				jugador.global_position = Vector2(ancho_px / 2.0, margen)
+			elif direccion_entrada == Vector2i(0, -1): 
+				jugador.global_position = Vector2(ancho_px / 2.0, alto_px - margen)
 
 	var camera = Camera2D.new()
 	camera.enabled = true
