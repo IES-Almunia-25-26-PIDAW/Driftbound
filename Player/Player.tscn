@@ -15,6 +15,9 @@ size_override = Vector2(128, 128)
 [sub_resource type="CircleShape2D" id="CircleShape2D_4kuee"]
 radius = 22.090721
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vlldt"]
+radius = 110.01818
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gfjak"]
 size = Vector2(12, 42)
 

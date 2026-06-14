@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://2ycw7yl2k834"]
+
+[ext_resource type="Texture2D" uid="uid://bwrd7dbeki52q" path="res://assets/sprites/Cofre-Mimic.png" id="1_iw6p3"]
+[ext_resource type="Script" uid="uid://gwhas1rtdmxp" path="res://Cofre/cofre.gd" id="1_yjwjx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yjwjx"]
+size = Vector2(32, 34)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tr52f"]
+size = Vector2(36, 37)
+
+[node name="Cofre" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("1_yjwjx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(1.359375, 1.4999999)
+texture = ExtResource("1_iw6p3")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_yjwjx")
+
+[node name="DetectorProyectiles" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectorProyectiles"]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_tr52f")

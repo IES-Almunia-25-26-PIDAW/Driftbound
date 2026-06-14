@@ -1,6 +1,8 @@
 extends TileMap
 var jugador = preload("res://player/Player.tscn").instantiate()
 const ENEMY_SCENE = preload("res://Enemigos/Enemy.tscn")
+const COFRE_NORMAL = preload("res://Cofre/cofre.tscn")
+const COFRE_MIMIC = preload("res://Cofre/Mimic/mimic.tscn")
 
 @export var min_spawn_distance: float = 200.0 # Distancia mínima para que no aparezca encima
 @export var max_spawn_distance: float = 400.0 # Distancia máxima para que no aparezca fuera de pantalla
@@ -150,7 +152,24 @@ func _on_borde_chunk_entered(body: Node2D, area_origen: Area2D):
 			print("¡No puedes ir por ahí! El mapa contiguo no es válido o es agua.")
 			if "velocity" in body:
 				body.global_position -= Vector2(direccion_viaje) * 20.0
-						
+
+func spawnear_cofre_inicial():
+	var es_mimic = randf() < 0.3 
+
+	var escena_a_instanciar = COFRE_MIMIC if es_mimic else COFRE_NORMAL
+	var nuevo_objeto = escena_a_instanciar.instantiate()
+
+	var offset = Vector2(randf_range(-150, 150), randf_range(-150, 150))
+	if offset.length() < 100:
+		offset = offset.normalized() * 120
+		
+	nuevo_objeto.global_position = posicion_spawn_jugador + offset
+
+	add_child(nuevo_objeto)
+
+	if es_mimic:
+		print("¡Cuidado! Ha aparecido un Mímico.")
+
 func calcular_punto_spawn_tierra():
 	# 1. Extraemos todas las casillas que son tierra en una sola línea limpia
 	var tierras = chunk_data.chunkTiles.duplicate() # Evitamos alterar la matriz original
@@ -209,6 +228,7 @@ func spawnear_jugador(direccion_entrada: Vector2i):
 	camera.position_smoothing_enabled = true
 	camera.position_smoothing_speed = 6.0
 	jugador.add_child(camera)
+	spawnear_cofre_inicial()
 		
 func _on_spawn_timer_timeout() -> void:
 	# Cada vez que el temporizador llegue a 0, ejecutamos el spawn
@@ -240,4 +260,3 @@ func get_player_pos() -> Vector2:
 	if Player:
 		return Player.global_position
 	return Vector2.ZERO
-		

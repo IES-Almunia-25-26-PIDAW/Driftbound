@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c05es82k76lxk"]
 
-[ext_resource type="Script" uid="uid://dp7aaj4ijr3pk" path="res://Scripts/Health/health_component.gd" id="1_ggsil"]
+[ext_resource type="Script" uid="uid://dp7aaj4ijr3pk" path="res://Player/Health/health_component.gd" id="1_ggsil"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_82o52"]
 size = Vector2(18, 37)

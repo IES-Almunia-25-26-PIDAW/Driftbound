@@ -16,12 +16,13 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="WorldMapGenerator"
 run/main_scene="uid://dmf3nbboh6chh"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*uid://b4nysj2hkh2yo"
+GameManager="*res://GameOver/game_manager.gd"
 
 [editor_plugins]
 
