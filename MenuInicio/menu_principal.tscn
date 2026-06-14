@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cbgdu4d3cyt28"]
+[gd_scene load_steps=12 format=3 uid="uid://cbgdu4d3cyt28"]
 
 [ext_resource type="Script" uid="uid://c44t0duxi35tq" path="res://MenuInicio/menu_principal.gd" id="1_h2oug"]
 [ext_resource type="Texture2D" uid="uid://c6knlo8h4x0fa" path="res://assets/sprites/Engranaje.tres" id="2_cmqnb"]
@@ -52,28 +52,28 @@ region = Rect2(32, 0, 32, 32)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_phqj7"]
 bg_color = Color(0.22745098, 0.43529412, 0.43529412, 1)
 
-[node name="MenuPrincipal" type="Control" unique_id=1391161930]
+[node name="MenuPrincipal" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_h2oug")
 
-[node name="Fondo" type="TextureRect" parent="." unique_id=674315775]
+[node name="Fondo" type="TextureRect" parent="."]
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 texture = ExtResource("2_y5np6")
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=869778878]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 theme_override_constants/separation = 25
 alignment = 1
 
-[node name="BotonNuevaPartida" type="Button" parent="VBoxContainer" unique_id=1143577998]
+[node name="BotonNuevaPartida" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -81,7 +81,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ec4ys")
 theme_override_styles/hover = SubResource("StyleBoxFlat_y5np6")
 text = "Nueva Partida"
 
-[node name="BotonContinuar" type="Button" parent="VBoxContainer" unique_id=340244928]
+[node name="BotonContinuar" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -89,7 +89,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_iw06e")
 theme_override_styles/hover = SubResource("StyleBoxFlat_4k0gc")
 text = "Continuar"
 
-[node name="BotonSalir" type="TextureButton" parent="." unique_id=1228375495]
+[node name="BotonSalir" type="TextureButton" parent="."]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 0
 offset_left = 7.0
@@ -102,7 +102,7 @@ texture_hover = SubResource("AtlasTexture_iw06e")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="BotonConfig" type="TextureButton" parent="." unique_id=907168116]
+[node name="BotonConfig" type="TextureButton" parent="."]
 texture_filter = 1
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 0
@@ -116,7 +116,7 @@ ignore_texture_size = true
 stretch_mode = 0
 flip_h = true
 
-[node name="PanelControles" type="Panel" parent="." unique_id=1742864782]
+[node name="PanelControles" type="Panel" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -128,88 +128,117 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_phqj7")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelControles" unique_id=1153401580]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelControles"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -47.0
-offset_top = -79.0
-offset_right = 47.0
-offset_bottom = 79.0
+offset_left = -66.5
+offset_right = 66.5
+offset_bottom = 526.0
 grow_horizontal = 2
-grow_vertical = 2
 alignment = 1
 
-[node name="FilaArriba" type="HBoxContainer" parent="PanelControles/VBoxContainer" unique_id=566271934]
+[node name="FilaArriba" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaArriba" unique_id=500382862]
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaArriba"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Arriba: "
 
-[node name="BotonArriba" type="Button" parent="PanelControles/VBoxContainer/FilaArriba" unique_id=723184260]
+[node name="BotonArriba" type="Button" parent="PanelControles/VBoxContainer/FilaArriba"]
 layout_mode = 2
 
-[node name="FilaAbajo" type="HBoxContainer" parent="PanelControles/VBoxContainer" unique_id=1245712180]
+[node name="FilaAbajo" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaAbajo" unique_id=686099442]
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaAbajo"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Abajo: "
 
-[node name="BotonAbajo" type="Button" parent="PanelControles/VBoxContainer/FilaAbajo" unique_id=11994289]
+[node name="BotonAbajo" type="Button" parent="PanelControles/VBoxContainer/FilaAbajo"]
 layout_mode = 2
 
-[node name="FilaDerecha" type="HBoxContainer" parent="PanelControles/VBoxContainer" unique_id=488729771]
+[node name="FilaDerecha" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaDerecha" unique_id=267075648]
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaDerecha"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Derecha: "
 
-[node name="BotonDerecha" type="Button" parent="PanelControles/VBoxContainer/FilaDerecha" unique_id=994591108]
+[node name="BotonDerecha" type="Button" parent="PanelControles/VBoxContainer/FilaDerecha"]
 layout_mode = 2
 
-[node name="FilaIzquierda" type="HBoxContainer" parent="PanelControles/VBoxContainer" unique_id=1282142815]
+[node name="FilaIzquierda" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaIzquierda" unique_id=1082274592]
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaIzquierda"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Izquierda: "
 
-[node name="BotonIzquierda" type="Button" parent="PanelControles/VBoxContainer/FilaIzquierda" unique_id=442115828]
+[node name="BotonIzquierda" type="Button" parent="PanelControles/VBoxContainer/FilaIzquierda"]
 layout_mode = 2
 
-[node name="FilaCorrer" type="HBoxContainer" parent="PanelControles/VBoxContainer" unique_id=967239482]
+[node name="FilaCorrer" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaCorrer" unique_id=607857988]
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaCorrer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Correr: "
 
-[node name="BotonCorrer" type="Button" parent="PanelControles/VBoxContainer/FilaCorrer" unique_id=1291557547]
+[node name="BotonCorrer" type="Button" parent="PanelControles/VBoxContainer/FilaCorrer"]
 layout_mode = 2
 
-[node name="FilaAtacar" type="HBoxContainer" parent="PanelControles/VBoxContainer" unique_id=1570247355]
+[node name="FilaAtacar" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaAtacar" unique_id=489920061]
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaAtacar"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Atacar: "
 
-[node name="BotonAtacar" type="Button" parent="PanelControles/VBoxContainer/FilaAtacar" unique_id=516813006]
+[node name="BotonAtacar" type="Button" parent="PanelControles/VBoxContainer/FilaAtacar"]
 layout_mode = 2
 
-[node name="BotonVolver" type="Button" parent="PanelControles" unique_id=351448147]
+[node name="FilaFuego" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaFuego"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Fuego: "
+
+[node name="BotonFuego" type="Button" parent="PanelControles/VBoxContainer/FilaFuego"]
+layout_mode = 2
+
+[node name="FilaAgua" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaAgua"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Agua: "
+
+[node name="BotonAgua" type="Button" parent="PanelControles/VBoxContainer/FilaAgua"]
+layout_mode = 2
+
+[node name="FilaTierra" type="HBoxContainer" parent="PanelControles/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelControles/VBoxContainer/FilaTierra"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Tierra: "
+
+[node name="BotonTierra" type="Button" parent="PanelControles/VBoxContainer/FilaTierra"]
+layout_mode = 2
+
+[node name="BotonVolver" type="Button" parent="PanelControles"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.49300003
@@ -235,4 +264,7 @@ text = "Volver"
 [connection signal="pressed" from="PanelControles/VBoxContainer/FilaIzquierda/BotonIzquierda" to="." method="_on_boton_izquierda_pressed"]
 [connection signal="pressed" from="PanelControles/VBoxContainer/FilaCorrer/BotonCorrer" to="." method="_on_boton_correr_pressed"]
 [connection signal="pressed" from="PanelControles/VBoxContainer/FilaAtacar/BotonAtacar" to="." method="_on_boton_atacar_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaFuego/BotonFuego" to="." method="_on_boton_fuego_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaAgua/BotonAgua" to="." method="_on_boton_agua_pressed"]
+[connection signal="pressed" from="PanelControles/VBoxContainer/FilaTierra/BotonTierra" to="." method="_on_boton_tierra_pressed"]
 [connection signal="pressed" from="PanelControles/BotonVolver" to="." method="_on_boton_volver_pressed"]

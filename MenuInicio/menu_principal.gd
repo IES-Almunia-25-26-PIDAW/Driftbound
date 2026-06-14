@@ -12,6 +12,9 @@ extends Control
 @onready var boton_derecha: Button = $PanelControles/VBoxContainer/FilaDerecha/BotonDerecha
 @onready var boton_correr: Button = $PanelControles/VBoxContainer/FilaCorrer/BotonCorrer
 @onready var boton_atacar: Button = $PanelControles/VBoxContainer/FilaAtacar/BotonAtacar
+@onready var boton_fuego: Button = $PanelControles/VBoxContainer/FilaFuego/BotonFuego
+@onready var boton_agua: Button = $PanelControles/VBoxContainer/FilaAgua/BotonAgua
+@onready var boton_tierra: Button = $PanelControles/VBoxContainer/FilaTierra/BotonTierra
 
 var partida_guardada_existe: bool = false
 
@@ -31,7 +34,10 @@ const ACCIONES = {
 	"izquierda": "a_move",
 	"derecha": "d_move",
 	"correr": "correr",
-	"atacar": "atacar"
+	"atacar": "atacar",
+	"fuego": "Fuego",
+	"agua": "Agua",
+	"tierra": "Tierra"
 }
 
 var accion_esperando_tecla: String = ""
@@ -74,6 +80,9 @@ func actualizar_texto_botones_controles() -> void:
 	boton_derecha.text = obtener_nombre_tecla(ACCIONES["derecha"])
 	boton_correr.text = obtener_nombre_tecla(ACCIONES["correr"])
 	boton_atacar.text = obtener_nombre_tecla(ACCIONES["atacar"])
+	boton_fuego.text = obtener_nombre_tecla(ACCIONES["fuego"])
+	boton_agua.text = obtener_nombre_tecla(ACCIONES["agua"])
+	boton_tierra.text = obtener_nombre_tecla(ACCIONES["tierra"])
 
 func obtener_nombre_tecla(accion: String) -> String:
 	var eventos = InputMap.action_get_events(accion)
@@ -124,3 +133,15 @@ func _on_boton_correr_pressed() -> void:
 func _on_boton_atacar_pressed() -> void:
 	accion_esperando_tecla = ACCIONES["atacar"]
 	boton_atacar.text = "...Pulsar tecla..."
+	
+func _on_boton_fuego_pressed() -> void:
+	accion_esperando_tecla = ACCIONES["fuego"]
+	boton_fuego.text = "...Pulsar tecla..."
+
+func _on_boton_agua_pressed() -> void:
+	accion_esperando_tecla = ACCIONES["agua"]
+	boton_agua.text = "...Pulsar tecla..."
+
+func _on_boton_tierra_pressed() -> void:
+	accion_esperando_tecla = ACCIONES["tierra"]
+	boton_tierra.text = "...Pulsar tecla..."
