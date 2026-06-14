@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5e8ulxjgknfh"]
+
+[ext_resource type="Script" uid="uid://cflnal3xf8ai0" path="res://GameOver/game_over.gd" id="1_g2khx"]
+
+[node name="GameOver" type="CanvasLayer"]
+script = ExtResource("1_g2khx")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.15294118, 0.15294118, 0.15294118, 0.5058824)
+
+[node name="Contenedor" type="VBoxContainer" parent="."]
+offset_right = 1151.0
+offset_bottom = 648.0
+alignment = 1
+
+[node name="GameOver" type="Label" parent="Contenedor"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 54
+text = "¡HAS PERDIDO!"
+horizontal_alignment = 1
+
+[node name="BotonReintentar" type="Button" parent="Contenedor"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "INTENTARLO DE NUEVO"
+
+[node name="BotonMenu" type="Button" parent="Contenedor"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "VOLVER AL MENU"
+
+[connection signal="pressed" from="Contenedor/BotonReintentar" to="." method="_on_boton_reintentar_pressed"]
+[connection signal="pressed" from="Contenedor/BotonMenu" to="." method="_on_boton_menu_pressed"]

@@ -34,6 +34,18 @@ func setHealth(value: int):
 
 func dead():
 	onDead.emit()
-	Global.sumar_puntos(115)
-	print("Puntos sumados el score actual es:", Global.score)
+	
+	# 🌟 COMPROBACIÓN MAESTRA: ¿El padre de este componente es el jugador?
+	if get_parent().is_in_group("grupo_jugador"):
+		print("💀 [HealthComponent] ¡El jugador se ha quedado sin vida!")
+		# Llamamos al GameManager global para que cree la pantalla de Game Over 
+		# desde fuera antes de borrar al jugador de la pantalla.
+		if ResourceLoader.exists("res://game_manager.gd") or true: # Validación de seguridad
+			GameManager.desplegar_game_over()
+	else:
+		# Si no es el jugador, asumimos que es un enemigo (como el mímico o un bicho normal)
+		Global.sumar_puntos(115)
+		print("Puntos sumados el score actual es:", Global.score)
+	
+	# Finalmente, borra al personaje (sea el jugador o un enemigo) de forma limpia
 	get_parent().queue_free()

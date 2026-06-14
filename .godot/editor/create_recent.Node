@@ -1,1 +1,12 @@
 CanvasLayer
+Button
+Label
+VBoxContainer
+ColorRect
+Control
+CollisionShape2D
+Area2D
+HitboxComponent
+Sprite2D
+CharacterBody2D
+StaticBody2D

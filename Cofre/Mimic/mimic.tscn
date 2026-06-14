@@ -1,0 +1,79 @@
+[gd_scene load_steps=14 format=3 uid="uid://dmtfrihtpcfyq"]
+
+[ext_resource type="Script" uid="uid://bilpp1qpgr6nh" path="res://Cofre/Mimic/mimic.gd" id="1_d0iib"]
+[ext_resource type="Texture2D" uid="uid://bwrd7dbeki52q" path="res://assets/sprites/Cofre-Mimic.png" id="1_f264c"]
+[ext_resource type="PackedScene" uid="uid://bnpl6542ntf6g" path="res://Enemigos/hitbox_component.tscn" id="2_x71gy"]
+[ext_resource type="PackedScene" uid="uid://c05es82k76lxk" path="res://Player/Health/health_component.tscn" id="3_fkfpl"]
+[ext_resource type="Script" uid="uid://bmc16ya1ust8v" path="res://Enemigos/HealthBarEnemy.gd" id="4_x71gy"]
+[ext_resource type="PackedScene" uid="uid://bjdawi53epci5" path="res://Player/movement.tscn" id="5_fkfpl"]
+[ext_resource type="PackedScene" uid="uid://c66u8hmckp2ro" path="res://Enemigos/sensor.tscn" id="6_mo8tt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d0iib"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3ctpn"]
+radius = 50.01
+
+[sub_resource type="Gradient" id="Gradient_0vly3"]
+colors = PackedColorArray(0.24313726, 0.24313726, 0.24313726, 1, 0.24313726, 0.24313726, 0.24313726, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fkfpl"]
+gradient = SubResource("Gradient_0vly3")
+width = 40
+height = 6
+
+[sub_resource type="Gradient" id="Gradient_50v2t"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mo8tt"]
+gradient = SubResource("Gradient_50v2t")
+width = 40
+height = 6
+
+[node name="Mimic" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_d0iib")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_f264c")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_d0iib")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("2_x71gy")]
+collision_layer = 0
+collision_mask = 2
+damage = 2
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_fkfpl")]
+collision_layer = 4
+collision_mask = 0
+maxHealth = 25
+
+[node name="Sensor" parent="." instance=ExtResource("6_mo8tt")]
+
+[node name="AreaActivacion" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaActivacion"]
+shape = SubResource("CircleShape2D_3ctpn")
+
+[node name="Movement" parent="." instance=ExtResource("5_fkfpl")]
+speed = 70.0
+
+[node name="HealthBar" type="TextureProgressBar" parent="." node_paths=PackedStringArray("health_component")]
+offset_left = -20.0
+offset_top = -43.0
+offset_right = 20.0
+offset_bottom = -3.0
+max_value = 3.0
+value = 1.0
+texture_under = SubResource("GradientTexture2D_fkfpl")
+texture_progress = SubResource("GradientTexture2D_mo8tt")
+tint_progress = Color(0.68482155, 0.26260805, 0.28263938, 1)
+script = ExtResource("4_x71gy")
+health_component = NodePath("../HealthComponent")

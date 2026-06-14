@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://3s3l1disrynf"]
+[gd_scene load_steps=12 format=4 uid="uid://3s3l1disrynf"]
 
 [ext_resource type="Script" uid="uid://bjg00rp3n1urd" path="res://Player/Player/Player_script.gd" id="1_gfjak"]
 [ext_resource type="Script" uid="uid://1w2l3v3kg6sq" path="res://Player/Player/area_2d.gd" id="2_524rm"]
@@ -14,6 +14,9 @@ size_override = Vector2(128, 128)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4kuee"]
 radius = 22.090721
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vlldt"]
+radius = 110.01818
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gfjak"]
 size = Vector2(12, 42)
@@ -70,6 +73,11 @@ script = ExtResource("2_524rm")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D"]
 position = Vector2(29, 1)
 shape = SubResource("CircleShape2D_4kuee")
+
+[node name="AreaIman" type="Area2D" parent="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/AreaIman"]
+shape = SubResource("CircleShape2D_vlldt")
 
 [node name="HealthComponent" parent="CharacterBody2D" instance=ExtResource("3_tpg5x")]
 visible = false

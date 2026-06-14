@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*uid://b4nysj2hkh2yo"
+GameManager="*res://GameOver/game_manager.gd"
 
 [editor_plugins]
 

@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://14bhfsfo2fke"]
+
+[ext_resource type="PackedScene" uid="uid://3s3l1disrynf" path="res://Player/Player.tscn" id="1_0xrc0"]
+[ext_resource type="PackedScene" uid="uid://dmtfrihtpcfyq" path="res://Cofre/Mimic/mimic.tscn" id="2_ajt8k"]
+[ext_resource type="PackedScene" uid="uid://2ycw7yl2k834" path="res://Cofre/cofre.tscn" id="3_ydy5i"]
+[ext_resource type="PackedScene" uid="uid://jwc0e77ohjd7" path="res://Interfaz de Combate/interfaz_en_combate.tscn" id="4_t8jl8"]
+
+[node name="Prueba" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_0xrc0")]
+
+[node name="Mimic" parent="." instance=ExtResource("2_ajt8k")]
+position = Vector2(443, 210)
+
+[node name="Cofre" parent="." instance=ExtResource("3_ydy5i")]
+position = Vector2(198, -58)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="InterfazEnCombate" parent="CanvasLayer" instance=ExtResource("4_t8jl8")]
