@@ -1,5 +1,4 @@
-res://Player/Player.tscn
-res://MenuInicio/menu_principal.tscn
-res://MenuInicio/menu_principal.gd
-res://MenuPausa/menu_pausa.tscn
 res://ChunkScene/ChunkScene.tscn
+res://World/WorldMap.gd
+res://ChunkScene/ChunkManager.gd
+res://World/WorldGenerator.gd
